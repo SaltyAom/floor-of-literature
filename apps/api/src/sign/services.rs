@@ -196,7 +196,7 @@ pub async fn signin(
         // By defering incorrect attempt, we can prioritize the
         // successful signin performance.
         // This can also slow down incoming attacker's attack.
-        delay_for(Duration::from_millis(500)).await;
+        delay_for(Duration::from_secs(1)).await;
 
         return Ok(HttpResponse::Unauthorized().json(APIResponse {
             success: false,
@@ -210,6 +210,12 @@ pub async fn signin(
             &encode(&uuid).unwrap()
         )
     );
+
+    // ? Defer successful attempt
+    // By defering user signin attempt, we can prevent
+    // attacker's incoming attack which ignore cookie.
+    // Thus keep repeating until the server down.
+    delay_for(Duration::from_millis(250)).await;
 
     Ok(HttpResponse::Ok().json(APIResponse {
         success: true,
