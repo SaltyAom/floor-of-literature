@@ -1,0 +1,40 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "esnext",
+		"typeRoots": ["node_modules/@types"],
+		"lib": ["es2017", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@frontend/pages/*": ["./apps/frontend/pages/*"],
+			"@frontend/styles/*": ["./apps/frontend/styles/*"],
+			"@frontend/images/*": ["./apps/frontend/public/images/*"],
+			"@frontend/components/*": ["./apps/frontend/components/*"],
+			"@frontend/libs/*": ["./apps/frontend/libs/*"],
+			"@frontend/pageTypes/*": ["./apps/frontend/pageTypes/*"],
+			"@frontend/stores": ["./apps/frontend/stores/index.ts"],
+			"@frontend/stores/*": ["./apps/frontend/stores/*"],
+			"@frontend/layouts/*": ["./apps/frontend/layouts/*"],
+			"@frontend/test-helpers": [
+				"./apps/frontend/test-helpers/index.tsx"
+			],
+			"@frontend/test-helpers/*": ["./apps/frontend/test-helpers/*"],
+			"@icons": ["./libs/icons/src/index.tsx"],
+			"@icons/*": ["./libs/icons/src/*"],
+			"@helpers": ["libs/helpers/src/index.ts"],
+			"@helpers/*": ["libs/helpers/src/*"],
+			"@frontend/helpers": ["libs/helpers/src/index.ts"]
+		}
+	},
+	"exclude": ["node_modules", "tmp"]
+}

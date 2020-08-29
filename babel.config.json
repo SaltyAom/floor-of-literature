@@ -1,0 +1,29 @@
+{
+	"presets": ["@nrwl/web/babel"],
+	"babelrcRoots": ["*"],
+	"plugins": [
+		[
+			"module-resolver",
+			{
+				"root": ["."],
+				"alias": {
+					"@liliya": "./apps/liliya",
+					"@liliya/pages": "./apps/liliya/pages",
+					"@liliya/pagesTypes": "./apps/liliya/pagesTypes",
+					"@liliya/styles": "./apps/liliya/styles",
+					"@liliya/fonts": "./apps/liliya/public/fonts",
+					"@liliya/images": "./apps/liliya/public/images",
+					"@liliya/components": "./apps/liliya/components",
+					"@liliya/libs": "./apps/liliya/libs",
+					"@liliya/stores": "./apps/liliya/stores",
+					"@liliya/layouts": "./apps/liliya/layouts",
+					"@liliya/test-helpers": "./apps/liliya/test-helpers",
+					"@icons": "./libs/icons/src",
+					"@libs": "./libs",
+					"@data": "./libs/data/src",
+					"@helpers": ["libs/helpers/src"]
+				}
+			}
+		]
+	]
+}

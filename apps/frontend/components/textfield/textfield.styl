@@ -1,0 +1,17 @@
+.text-field
+    @apply relative flex flex-row w-full text-xl text-gray-800 my-2 px-4 pt-6 pb-2 bg-gray-200 rounded-md
+
+    & > .label
+        @apply z-0 absolute text-gray-600
+        transform translatey(-8px)
+        transition font-size .155s ease-out, transform .175s ease-out
+
+    & > .input
+        @apply z-10 w-full bg-transparent outline-none
+
+        &:hover,
+        &:focus,
+        &:not(:placeholder-shown)
+            & + .label
+                @apply text-xs
+                transform translatey(-16px)
