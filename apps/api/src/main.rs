@@ -7,7 +7,7 @@ mod libs;
 use std::{ env, io::Result };
 use dotenv::dotenv;
 
-use actix_web::{ HttpServer, App, middleware };
+use actix_web::{ HttpServer, App, middleware, web::JsonConfig };
 use actix_redis::RedisActor;
 use actix_identity::{ IdentityService, CookieIdentityPolicy };
 
@@ -33,10 +33,13 @@ async fn main() -> Result<()> {
                     .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
                     .allowed_header(http::header::CONTENT_TYPE)
                     .supports_credentials()
-                    .max_age(86400)
+                    .max_age(86400 * 3)
                     .finish()
             )
             .wrap(middleware::Compress::default())
+            .wrap(
+                JsonConfig::default().limit(256)
+            )
             .wrap(
                 IdentityService::new(
                     CookieIdentityPolicy::new(

@@ -1,23 +1,24 @@
-import { RefObject } from "react"
+import { RefObject } from 'react'
 
-import { TextFieldComponent } from "./types"
+import { TextFieldComponent } from './types'
 
-import "./textfield.styl"
+import './textfield.styl'
 
 const TextField: TextFieldComponent = ({
 	name,
-	ref,
-	type = "text",
+	inputRef,
+	type = 'text',
 	onChange = () => null,
-	placeholder = "Placeholder",
-	className = ""
+	placeholder = 'Placeholder',
+	className = '',
+	autoComplete = ''
 }) => (
 	<div className={`text-field ${className}`}>
 		<input
 			className="input"
-			value=""
 			placeholder=" "
-			{...{ type, onChange, name, ref }}
+			ref={inputRef}
+			{...{ type, onChange, name, autoComplete }}
 		/>
 		<label className="label" htmlFor={name}>
 			{placeholder}
@@ -26,7 +27,6 @@ const TextField: TextFieldComponent = ({
 )
 
 export const get = (ref: RefObject<HTMLInputElement>): string =>
-	/* @ts-ignore */
-	ref.current.base.firstElementChild.value
+	ref.current.value
 
 export default TextField

@@ -55,6 +55,18 @@ pub async fn signup(
         }));
     }
 
+    if sign.username.len() > 32 {
+        return Ok(HttpResponse::BadRequest().json(APIResponse {
+            success: false,
+            detail: "Username can have maximum at 32 characters".to_owned(),
+        }));
+    } else if sign.password.len() > 64 {
+        return Ok(HttpResponse::BadRequest().json(APIResponse {
+            success: false,
+            detail: "Password can have maximum at 64 characters".to_owned(),
+        }));
+    }
+
     // Check user existance
     let user = encrypt(&format!("user:{}", sign.username));
 
@@ -131,6 +143,18 @@ pub async fn signin(
         return Ok(HttpResponse::BadRequest().json(APIResponse {
             success: false,
             detail: "Password need to be atleast 5 characters".to_owned(),
+        }));
+    }
+
+    if sign.username.len() > 32 {
+        return Ok(HttpResponse::BadRequest().json(APIResponse {
+            success: false,
+            detail: "Username can have maximum at 32 characters".to_owned(),
+        }));
+    } else if sign.password.len() > 64 {
+        return Ok(HttpResponse::BadRequest().json(APIResponse {
+            success: false,
+            detail: "Password can have maximum at 64 characters".to_owned(),
         }));
     }
 
