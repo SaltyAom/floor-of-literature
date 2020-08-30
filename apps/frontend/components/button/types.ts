@@ -8,6 +8,7 @@ export interface ButtonProps {
     asLink?: boolean
     href?: string
     transparent?: boolean
+    onClick?: () => void
 }
 
 export type ButtonComponent = FunctionComponent<ButtonProps>

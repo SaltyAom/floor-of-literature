@@ -1,10 +1,10 @@
-import { composeClass } from "@helpers/compose"
+import { composeClass } from '@helpers/compose'
 
-import Link from "next/link"
+import Link from 'next/link'
 
-import { ButtonComponent } from "./types"
+import { ButtonComponent } from './types'
 
-import "./button.styl"
+import './button.styl'
 
 const Button: ButtonComponent = ({
 	children,
@@ -12,14 +12,15 @@ const Button: ButtonComponent = ({
 	primary = false,
 	space = false,
 	asLink = false,
-	href = "",
-	transparent = false
+	href = '',
+	transparent = false,
+	onClick = () => null
 }) => {
-	let className = `button ${composeClass(fluid, "-fluid")} ${
-		primary ? "-primary" : ""
-	} ${composeClass(space, "-space")} ${composeClass(
+	let className = `button ${composeClass(fluid, '-fluid')} ${
+		primary ? '-primary' : ''
+	} ${composeClass(space, '-space')} ${composeClass(
 		transparent,
-		"-transparent"
+		'-transparent'
 	)}`
 
 	return asLink ? (
@@ -27,7 +28,7 @@ const Button: ButtonComponent = ({
 			<a className={className}>{children}</a>
 		</Link>
 	) : (
-		<button className={className}>{children}</button>
+		<button {...{ className, onClick }}>{children}</button>
 	)
 }
 
