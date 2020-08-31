@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 const LoginGuard = ({ children }) => {
 	let [, updateToken] = useRecoilState(tokenAtom)
 
-	let { pathname } = useRouter() || { pathname: '/' }
+	let { pathname } = useRouter()
 
 	useEffect(() => {
 		let whitelist = ['/signout']

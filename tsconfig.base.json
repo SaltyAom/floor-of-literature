@@ -26,7 +26,7 @@
 			"@frontend/stores/*": ["./apps/frontend/stores/*"],
 			"@frontend/layouts/*": ["./apps/frontend/layouts/*"],
 			"@frontend/test-helpers": [
-				"./apps/frontend/test-helpers/index.tsx"
+				"./apps/frontend/test-helpers/index.ts"
 			],
 			"@frontend/test-helpers/*": ["./apps/frontend/test-helpers/*"],
 			"@icons": ["./libs/icons/src/index.tsx"],

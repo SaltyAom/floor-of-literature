@@ -1,10 +1,8 @@
 import { RecoilRoot } from 'recoil'
 
-import LoginGuard from '@frontend/layouts/loginGuard'
-
 const Provider = ({ children }) => (
 	<RecoilRoot>
-		<LoginGuard>{children}</LoginGuard>
+		{children}
 	</RecoilRoot>
 )
 

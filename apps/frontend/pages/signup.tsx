@@ -86,7 +86,7 @@ const Signup = () => {
 			/>
 			<TextField
 				inputRef={confirmPasswordRef}
-				name="password"
+				name="confirm-password"
 				placeholder="Confirm Password"
 				type="password"
 				autoComplete="new-password"

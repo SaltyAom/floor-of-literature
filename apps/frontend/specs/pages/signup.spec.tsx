@@ -1,0 +1,407 @@
+import { render, fireEvent, screen, waitFor } from '@testing-library/react'
+
+import { Provider, useRouter } from '@frontend/test-helpers'
+
+import SignUp from '@frontend/pages/signup'
+
+describe('Sign Up Page', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		fetch.resetMocks()
+	})
+
+	it('should render successfulyl', () => {
+		let { baseElement } = render(
+			<Provider>
+				<SignUp />
+			</Provider>
+		)
+
+		expect(baseElement).toBeTruthy()
+	})
+
+	it("should render 'Floor of Literature'", () => {
+		let { getByText } = render(
+			<Provider>
+				<SignUp />
+			</Provider>
+		)
+
+		expect(getByText('Floor of Literature')).toBeTruthy()
+	})
+
+	it('should have username text-field', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			textField = baseElement.querySelector('.input[name="username"]')
+
+		expect(textField).toBeTruthy()
+	})
+
+	it('should have text-field with "username" as placeholder', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			textField = baseElement.querySelector('.input[name="username"]'),
+			placeholder = textField.nextElementSibling
+
+		expect(placeholder.textContent).toBe('Username')
+	})
+
+	it('should have password text-field', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			textField = baseElement.querySelector('.input[name="password"]')
+
+		expect(textField).toBeTruthy()
+	})
+
+	it('should have textfield with "password" as placeholder', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			textField = baseElement.querySelector('.input[name="password"]'),
+			placeholder = textField.nextElementSibling
+
+		expect(placeholder.textContent).toBe('Password')
+	})
+
+	it('should have submit button', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			button = baseElement.querySelector('button')
+
+		expect(button).toBeTruthy()
+	})
+
+	it('should not be able to submit if form is blank', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form')
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it('should not be able to submit if username is less than 5 characters', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '1234'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '12345678'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it('should not be able to submit if password is less than 5 characters', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '1234'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '12345678'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it('should not be able to submit if username is more than 32 characters', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '1234567890abcdefghijklmnopqrstuvwxyz'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '12345678'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it('should not be able to submit if password is more than 32 characters', () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '1234567890abcdefghijklmnopqrstuvwxyz'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '1234567890abcdefghijklmnopqrstuvwxyz'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it("should not be able to submit if confirm password doesn't match", () => {
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '1234567'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(0)
+	})
+
+	it('should be able to submit form successfully', () => {
+		// @ts-ignore
+		fetch.mockResponseOnce(
+			JSON.stringify({ success: true, detail: 'Successfully sign up' })
+		)
+
+		useRouter.mockImplementationOnce(() => ({
+			push: jest.fn()
+		}))
+
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '12345678'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		expect(fetch).toHaveBeenCalledTimes(1)
+	})
+
+	// TODO
+	// it('should be redirect to landing page after signed in', () => {
+	// 	// @ts-ignore
+	// 	fetch.mockResponseOnce(
+	// 		JSON.stringify({ success: true, detail: 'Successfully sign in' })
+	// 	)
+
+	// 	let pathname = '/signin'
+
+	// 	useRouter.mockImplementationOnce(() => ({
+	// 		push: (route) => {
+	// 			pathname = route
+	// 		}
+	// 	}))
+
+	// 	let { baseElement } = render(
+	// 			<Provider>
+	// 				<SignUp />
+	// 			</Provider>
+	// 		),
+	// 		form = baseElement.querySelector('form'),
+	// 		username = baseElement.querySelector('.input[name="username"]'),
+	// 		password = baseElement.querySelector('.input[name="password"]')
+
+	// 	fireEvent.change(username, {
+	// 		target: {
+	// 			value: '12345678'
+	// 		}
+	// 	})
+	// 	fireEvent.change(password, {
+	// 		target: {
+	// 			value: '12345678'
+	// 		}
+	// 	})
+
+	// 	fireEvent.submit(form)
+
+	// 	expect(pathname).toBe("/")
+	// })
+
+	it('should show error if sign up failed', async () => {
+		let errorStatus = 'Username or password is incorrect.'
+
+		// @ts-ignore
+		fetch.mockResponseOnce(
+			JSON.stringify({
+				success: false,
+				detail: errorStatus.replace('.', '')
+			})
+		)
+
+		useRouter.mockImplementationOnce(() => ({
+			push: jest.fn()
+		}))
+
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]'),
+			confirmPassword = baseElement.querySelector(
+				'.input[name="confirm-password"]'
+			)
+
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(confirmPassword, {
+			target: {
+				value: '12345678'
+			}
+		})
+
+		fireEvent.submit(form)
+
+		await waitFor(() => expect(screen.getByText(errorStatus)).toBeTruthy())
+
+		let error = baseElement.querySelector('.error')
+
+		expect(error.textContent).toBe(errorStatus)
+	})
+})
