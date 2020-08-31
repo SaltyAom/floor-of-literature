@@ -1,8 +1,5 @@
 import Provider from './provider'
 
-import { useRouter } from './router'
+import { router, useRouter, push } from './router'
 
-export {
-    useRouter,
-    Provider
-}
+export { router, useRouter, push, Provider }

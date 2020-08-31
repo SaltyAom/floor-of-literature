@@ -65,7 +65,7 @@ const Signup = () => {
 				if (success) router.push('/signin')
 				else updateError(detail)
 			})
-	}, [])
+	}, [router])
 
 	return (
 		<SignLayout onSubmit={signup}>

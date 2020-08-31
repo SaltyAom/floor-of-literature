@@ -1,11 +1,18 @@
 /* eslint-disable */
-const useRouter = jest.spyOn(require('next/router'), 'useRouter')
+import * as router from 'next/router'
+
+const push = jest.fn()
+
+// @ts-ignore
+router.useRouter = jest.fn()
+// @ts-ignore
+router.useRouter.mockImplementation(() => ({ route: '/', push }))
 
 // ? Usage
 // useRouter.mockImplementationOnce(() => ({
 //     query: { product: 'coffee' },
 // }))
 
-export { 
-    useRouter
-}
+const useRouter = router.useRouter
+
+export { router, useRouter, push }

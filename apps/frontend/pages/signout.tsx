@@ -11,7 +11,7 @@ const Logout = () => {
 	let router = useRouter()
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/api/signout?time=${Date.now()}`, {
+		fetch(`http://localhost:8080/api/signout`, {
 			method: 'POST',
 			credentials: 'include'
 		})
@@ -19,9 +19,7 @@ const Logout = () => {
 			.then(({ success }) => {
 				updateToken(success)
 
-				console.log('Logout')
-
-				if (success) return router.push('/')
+				router.push('/')
 			})
 	}, [])
 

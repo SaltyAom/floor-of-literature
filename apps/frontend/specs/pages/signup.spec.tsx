@@ -1,6 +1,6 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
 
-import { Provider, useRouter } from '@frontend/test-helpers'
+import { Provider, push } from '@frontend/test-helpers'
 
 import SignUp from '@frontend/pages/signup'
 
@@ -10,7 +10,7 @@ describe('Sign Up Page', () => {
 		fetch.resetMocks()
 	})
 
-	it('should render successfulyl', () => {
+	it('should render successfully', () => {
 		let { baseElement } = render(
 			<Provider>
 				<SignUp />
@@ -276,10 +276,6 @@ describe('Sign Up Page', () => {
 			JSON.stringify({ success: true, detail: 'Successfully sign up' })
 		)
 
-		useRouter.mockImplementationOnce(() => ({
-			push: jest.fn()
-		}))
-
 		let { baseElement } = render(
 				<Provider>
 					<SignUp />
@@ -314,44 +310,36 @@ describe('Sign Up Page', () => {
 	})
 
 	// TODO
-	// it('should be redirect to landing page after signed in', () => {
-	// 	// @ts-ignore
-	// 	fetch.mockResponseOnce(
-	// 		JSON.stringify({ success: true, detail: 'Successfully sign in' })
-	// 	)
+	it('should be redirect to landing page after signed in', () => {
+		// @ts-ignore
+		fetch.mockResponseOnce(
+			JSON.stringify({ success: true, detail: 'Successfully sign in' })
+		)
 
-	// 	let pathname = '/signin'
+		let { baseElement } = render(
+				<Provider>
+					<SignUp />
+				</Provider>
+			),
+			form = baseElement.querySelector('form'),
+			username = baseElement.querySelector('.input[name="username"]'),
+			password = baseElement.querySelector('.input[name="password"]')
 
-	// 	useRouter.mockImplementationOnce(() => ({
-	// 		push: (route) => {
-	// 			pathname = route
-	// 		}
-	// 	}))
+		fireEvent.change(username, {
+			target: {
+				value: '12345678'
+			}
+		})
+		fireEvent.change(password, {
+			target: {
+				value: '12345678'
+			}
+		})
 
-	// 	let { baseElement } = render(
-	// 			<Provider>
-	// 				<SignUp />
-	// 			</Provider>
-	// 		),
-	// 		form = baseElement.querySelector('form'),
-	// 		username = baseElement.querySelector('.input[name="username"]'),
-	// 		password = baseElement.querySelector('.input[name="password"]')
+		fireEvent.submit(form)
 
-	// 	fireEvent.change(username, {
-	// 		target: {
-	// 			value: '12345678'
-	// 		}
-	// 	})
-	// 	fireEvent.change(password, {
-	// 		target: {
-	// 			value: '12345678'
-	// 		}
-	// 	})
-
-	// 	fireEvent.submit(form)
-
-	// 	expect(pathname).toBe("/")
-	// })
+		expect(push).toHaveBeenCalledTimes(1)
+	})
 
 	it('should show error if sign up failed', async () => {
 		let errorStatus = 'Username or password is incorrect.'
@@ -363,10 +351,6 @@ describe('Sign Up Page', () => {
 				detail: errorStatus.replace('.', '')
 			})
 		)
-
-		useRouter.mockImplementationOnce(() => ({
-			push: jest.fn()
-		}))
 
 		let { baseElement } = render(
 				<Provider>
