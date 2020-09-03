@@ -114,6 +114,87 @@
 					}
 				}
 			}
+		},
+		"types": {
+			"root": "libs/types",
+			"sourceRoot": "libs/types/src",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:lint",
+					"options": {
+						"linter": "eslint",
+						"tsConfig": [
+							"libs/types/tsconfig.lib.json",
+							"libs/types/tsconfig.spec.json"
+						],
+						"exclude": ["**/node_modules/**", "!libs/types/**/*"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"options": {
+						"jestConfig": "libs/types/jest.config.js",
+						"tsConfig": "libs/types/tsconfig.spec.json",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"data": {
+			"root": "libs/data",
+			"sourceRoot": "libs/data/src",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:lint",
+					"options": {
+						"linter": "eslint",
+						"tsConfig": [
+							"libs/data/tsconfig.lib.json",
+							"libs/data/tsconfig.spec.json"
+						],
+						"exclude": ["**/node_modules/**", "!libs/data/**/*"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"options": {
+						"jestConfig": "libs/data/jest.config.js",
+						"tsConfig": "libs/data/tsconfig.spec.json",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"icons": {
+			"root": "libs/icons",
+			"sourceRoot": "libs/icons/src",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:lint",
+					"options": {
+						"linter": "eslint",
+						"tsConfig": [
+							"libs/icons/tsconfig.lib.json",
+							"libs/icons/tsconfig.spec.json"
+						],
+						"exclude": ["**/node_modules/**", "!libs/icons/**/*"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"options": {
+						"jestConfig": "libs/icons/jest.config.js",
+						"tsConfig": "libs/icons/tsconfig.spec.json",
+						"passWithNoTests": true
+					}
+				}
+			}
 		}
 	},
 	"cli": {

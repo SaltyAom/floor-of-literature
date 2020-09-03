@@ -1,0 +1,58 @@
+$item-size = 40px
+
+#literatures
+    @apply grid justify-center gap-4 mx-auto my-4 p-4
+    max-width 960px
+
+    & > .literature
+        @apply flex flex-col justify-between w-full p-4 rounded
+        box-shadow 0 4px 16px transparentify(#000, .075), 0 1px 4px transparentify(#000, .075)
+
+        & > .detail
+            @apply flex flex-col w-full
+
+            & > .title
+                @apply text-gray-700 font-semibold text-2xl
+
+            & > .author
+                @apply text-gray-500 font-light mt-2
+
+                &::before
+                    content "ー "
+
+        & > .footer
+            @apply flex w-full justify-between items-center mt-2 py-1
+
+            & > .borrow
+                @apply flex-1 px-4 py-2 text-gray-700 font-semibold rounded bg-gray-200
+                height $item-size
+
+                &.-disabled
+                    @apply text-gray-500 bg-transparent cursor-not-allowed
+                    outline none
+
+            & > .actions
+                @apply flex flex-row pl-1 text-gray-600
+
+                & > .action
+                    @apply ml-1 rounded-full
+                    width $item-size
+                    height $item-size
+                    outline none
+                    transition background .15s ease-out
+
+                    & > .icon
+                        margin auto
+
+                    &:hover
+                        @apply bg-gray-200
+
+                    &.-active
+                        &.-heart
+                            @apply text-red-500
+
+                        &.-bookmark
+                            @apply text-green-400
+
+                        & > .icon
+                           fill currentColor

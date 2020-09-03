@@ -20,8 +20,9 @@
 					"@liliya/test-helpers": "./apps/liliya/test-helpers",
 					"@icons": "./libs/icons/src",
 					"@libs": "./libs",
+					"@helpers": ["libs/helpers/src"],
 					"@data": "./libs/data/src",
-					"@helpers": ["libs/helpers/src"]
+					"@types": ["libs/types/src"]
 				}
 			}
 		]

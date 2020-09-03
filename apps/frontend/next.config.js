@@ -9,12 +9,12 @@ const { join } = require('path')
 module.exports = withPlugins(
 	[
 		[withStylus],
-		[
-			withPurge,
-			{
-				purgeCssPaths: ['pages/**/*', 'components/**/*', 'layouts/**/*']
-			}
-		]
+		// [
+		// 	withPurge,
+		// 	{
+		// 		purgeCssPaths: ['pages/**/*', 'components/**/*', 'layouts/**/*']
+		// 	}
+		// ]
 	],
 	{
 		webpack(config, options) {
@@ -56,7 +56,9 @@ module.exports = withPlugins(
 				'@frontend/layouts': join(__dirname, 'layouts'),
 				'@frontend/test-helpers': join(__dirname, 'test-helpers'),
 				'@icons': join(__dirname, '../../', 'libs/icons/src'),
-				'@helpers': join(__dirname, 'libs/helpers/src')
+				'@helpers': join(__dirname, 'libs/helpers/src'),
+				'@data': join(__dirname, 'libs/data/src'),
+				'@types': join(__dirname, 'libs/types/src')
 			}
 
 			return config

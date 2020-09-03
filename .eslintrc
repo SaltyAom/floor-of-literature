@@ -28,7 +28,8 @@
 					{ "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
 				]
 			}
-		]
+		],
+		"prefer-const": "off"
 	},
 	"overrides": [
 		{

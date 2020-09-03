@@ -1,3 +1,4 @@
 import tokenAtom from './token'
+import borrowedAtom from './borrowed'
 
-export { tokenAtom }
+export { tokenAtom, borrowedAtom }
